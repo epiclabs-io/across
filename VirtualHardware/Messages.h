@@ -23,3 +23,27 @@ typedef struct digitalWrite_m
 	uint8_t pin;
 	uint8_t value;
 };
+
+typedef struct analogWrite_m
+{
+	uint8_t pin;
+	int16_t value;
+};
+
+typedef struct digitalRead_m
+{
+	uint8_t pin;
+};
+typedef struct digitalRead_r
+{
+	int16_t value;
+};
+
+typedef struct analogRead_m
+{
+	uint8_t pin;
+};
+typedef struct analogRead_r
+{
+	int16_t value;
+};

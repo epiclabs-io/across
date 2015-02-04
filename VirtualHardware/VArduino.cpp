@@ -17,8 +17,7 @@ void digitalWrite(uint8_t pin, uint8_t value)
 
 int16_t digitalRead(uint8_t pin)
 {
-	printf("digitalRead(pin=%d)\n", pin);
-	return 0;
+	return ACHostLink::digitalRead(pin);
 }
 
 int16_t analogRead(uint8_t pin)
