@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="VirtualHardware\Print.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,9 +25,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VirtualHardware\Stream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VirtualHardware\VArduino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VirtualHardware\VirtualSerial.cpp">
@@ -46,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VirtualHardware\ACHostLink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualHardware\Arduino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,9 +62,6 @@
     <ClInclude Include="VirtualHardware\Stream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VirtualHardware\VArduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VirtualHardware\VirtualSerial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +78,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VirtualHardware\Messages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualHardware\Arduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualHardware\pins_arduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -71,17 +71,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="ACross.cpp" />
     <ClCompile Include="VirtualHardware\ACHostLink.cpp" />
     <ClCompile Include="VirtualHardware\AConfig.cpp" />
+    <ClCompile Include="VirtualHardware\Arduino.cpp" />
     <ClCompile Include="VirtualHardware\Print.cpp" />
     <ClCompile Include="VirtualHardware\Serial.cpp" />
     <ClCompile Include="VirtualHardware\SerialEx.cpp" />
     <ClCompile Include="VirtualHardware\Stream.cpp" />
-    <ClCompile Include="VirtualHardware\VArduino.cpp" />
     <ClCompile Include="VirtualHardware\VirtualSerial.cpp" />
     <ClCompile Include="VirtualHardware\WString.cpp" />
   </ItemGroup>
@@ -89,13 +86,14 @@
     <ClInclude Include="ACross.h" />
     <ClInclude Include="VirtualHardware\ACHostLink.h" />
     <ClInclude Include="VirtualHardware\AConfig.h" />
+    <ClInclude Include="VirtualHardware\Arduino.h" />
     <ClInclude Include="VirtualHardware\Messages.h" />
+    <ClInclude Include="VirtualHardware\pins_arduino.h" />
     <ClInclude Include="VirtualHardware\Print.h" />
     <ClInclude Include="VirtualHardware\Printable.h" />
     <ClInclude Include="VirtualHardware\Serial.h" />
     <ClInclude Include="VirtualHardware\SerialEx.h" />
     <ClInclude Include="VirtualHardware\Stream.h" />
-    <ClInclude Include="VirtualHardware\VArduino.h" />
     <ClInclude Include="VirtualHardware\VirtualSerial.h" />
     <ClInclude Include="VirtualHardware\WString.h" />
   </ItemGroup>

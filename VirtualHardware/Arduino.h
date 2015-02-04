@@ -52,6 +52,38 @@ using namespace std;
 #define FALLING 2
 #define RISING 3
 
+#include <iostream>
+
+using namespace std;
+
+#define PgmPrint(s) Serial.print(s)
+#define PgmPrintln(s) Serial.println(s)
+#define SerialPrintln_P(s) PgmPrintln((s))
+#define SerialPrint_P(s) PgmPrint((s))
+#define sprintf sprintf_s
+
+
+#define PROGMEM
+#define PGM_P char*
+#define NATIVE_FUNCTION_PTR(ptr) ptr
+#define PGM_STR_PTR(ptr) ptr
+
+#define __inline__
+#define __extension__
+#define __ATTR_PURE__
+#define __ATTR_CONST__
+#define __inline__
+#define __asm__ 
+#define __volatile__
+
+#define NOINLINE
+#define ALWAYSINLINE
+
+#define waitChar() Serial.waitAvailable(INFINITE);
+#define strncmp_P strncmp
+#define strcmp_P strcmp
+
+
 #include "VirtualSerial.h"
 
 void pinMode(uint8_t pin, uint8_t mode);
@@ -64,6 +96,9 @@ void analogWrite(uint8_t pin, int value);
 int FreeRam(void);
 
 extern VirtualSerial Serial;
+
+#include "pins_arduino.h"
+
 
 #endif
 #endif

@@ -47,11 +47,11 @@ void ACHostLink::sendMessage(uint16_t message, uint16_t length, char* data)
 	link.Write(data, length);
 }
 
-void ACHostLink::invoke(uint16_t message, uint8_t numParms, uint16_t* parmLengths, uint8_t* qualifiers, ...)
+void ACHostLink::invoke(uint16_t message, uint8_t numParms, const uint16_t* parmLengths, const uint8_t* qualifiers, ...)
 {
 	va_list args;
 	va_list rec;
-	va_start(args, parmLengths);
+	va_start(args, qualifiers);
 	va_copy(rec, args);
 	
 	uint16_t totalLength=0;
@@ -61,7 +61,14 @@ void ACHostLink::invoke(uint16_t message, uint8_t numParms, uint16_t* parmLength
 		if (qualifiers[i] & AH_IN)
 		{
 			if (qualifiers[i] & AH_REF)
-				memcpy(buffer + totalLength, va_arg(args, uint8_t*), parmLengths[i]);
+			{
+				uint8_t* src = va_arg(args, uint8_t*);
+				uint16_t length = parmLengths[i];
+				if (parmLengths == 0)
+					length = va_arg(args, uint16_t);
+
+				memcpy(buffer + totalLength, src, length);
+			}
 			else
 				for (int j = 0; j < parmLengths[i]; j++)
 					buffer[totalLength + j] = va_arg(args, uint8_t);
@@ -91,15 +98,25 @@ void ACHostLink::invoke(uint16_t message, uint8_t numParms, uint16_t* parmLength
 	{
 		if (qualifiers[i] & AH_OUT)
 		{
-			memcpy(va_arg(args, uint8_t*),buffer+p, parmLengths[i]);
+			uint8_t* dst = va_arg(rec, uint8_t*);
+			uint16_t length = parmLengths[i];
+			if (parmLengths == 0)
+				length = va_arg(rec, uint16_t);
+
+			memcpy(dst, buffer + p, length);
 			p += parmLengths[i];
 		}
 		else
 			if (qualifiers[i] & AH_REF)
-				va_arg(args, uint8_t*);
+			{
+				if (parmLengths[i] == 0)
+					va_arg(rec, uint16_t);
+				else
+					va_arg(rec, uint8_t*);
+			}
 			else
 				for (int j = 0; j < parmLengths[i]; j++)
-					va_arg(args, uint8_t);
+					va_arg(rec, uint8_t);
 	}
 
 	va_end(args);
@@ -112,18 +129,7 @@ void ACHostLink::pinMode(uint8_t pin, uint8_t mode)
 		printf("pinMode(pin = %d, mode=%d)\n", pin, mode);
 	else
 	{
-		pinMode_m m;
-		m.mode = mode;
-		m.pin = pin;
-		sendMessage(MSG_pinMode, sizeof(m), (char*)&m);
-		receiveMessage();
-
-		uint16_t lengths[2] = { sizeof(pin), sizeof(mode) };
-		uint8_t qualifiers[2] = { AH_IN, AH_IN };
-
-		invoke(MSG_pinMode, 2, lengths, qualifiers, pin, mode);
-
-
+		invoke_RPC(pinMode, pin, mode);
 	}
 
 }
@@ -134,11 +140,7 @@ void ACHostLink::digitalWrite(uint8_t pin, uint8_t value)
 		printf("digitalWrite(pin=%d, value=%d)\n", pin, value);
 	else
 	{
-		digitalWrite_m m;
-		m.pin = pin;
-		m.value = value;
-		sendMessage(MSG_digitalWrite, sizeof(m),(char*)&m);
-		receiveMessage();
+		invoke_RPC(digitalWrite, pin, value);
 	}
 }
 
@@ -149,21 +151,33 @@ int16_t ACHostLink::digitalRead(uint8_t pin)
 		printf("digitalRead(pin=%d)\n", pin);
 	else
 	{
-		digitalRead_m m;
-		m.pin = pin;
-		sendMessage(MSG_digitalRead, sizeof(m), (char*)&m);
-		receiveMessage();
-		digitalRead_r r = readMessage<digitalRead_r>();
-		return r.value;
+
+		int16_t ret;
+		invoke_RPC(digitalRead, pin, &ret);
+		return ret;
 
 	}
 
 }
 void ACHostLink::analogWrite(uint8_t pin, int16_t value)
 {
-
+	if (!hostLinkEnabled)
+		printf("analogWrite(pin=%d, value=%d)\n", pin, value);
+	else
+	{
+		invoke_RPC(analogWrite, pin, value);
+	}
 }
 int16_t ACHostLink::analogRead(uint8_t pin)
 {
+	if (!hostLinkEnabled)
+		printf("analogRead(pin=%d)\n", pin);
+	else
+	{
 
+		int16_t ret;
+		invoke_RPC(analogRead, pin, &ret);
+		return ret;
+
+	}
 }

@@ -1,4 +1,4 @@
-#include "VArduino.h"
+#include "Arduino.h"
 #include "ACHostLink.h"
 #include <stdio.h>
 VirtualSerial Serial;
@@ -22,8 +22,7 @@ int16_t digitalRead(uint8_t pin)
 
 int16_t analogRead(uint8_t pin)
 {
-	printf("analogRead(pin=%d)\n", pin);
-	return 0;
+	return ACHostLink::analogRead(pin);
 }
 
 void analogReference(uint8_t mode)

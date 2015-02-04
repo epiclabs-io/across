@@ -6,10 +6,7 @@
 #include "Messages.h"
 
 
-static const uint8_t AH_IN = 0x01;
-static const uint8_t AH_REF = 0x4;
-static const uint8_t AH_OUT = 0x02 | AH_REF;
-static const uint8_t AH_INOUT = AH_OUT | AH_IN;
+
 
 
 
@@ -32,7 +29,7 @@ private:
 	static void sendMessage(uint16_t message, uint16_t length, char* data);
 	static void receiveMessage();
 
-	static void invoke(uint16_t message, uint8_t numParms, uint16_t* parmLengths, uint8_t* qualifiers ...);
+	static void invoke(uint16_t message, uint8_t numParms, const uint16_t* parmLengths, const uint8_t* qualifiers ...);
 
 
 };
