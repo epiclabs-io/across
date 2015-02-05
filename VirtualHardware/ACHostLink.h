@@ -14,14 +14,10 @@ class ACHostLink
 {
 
 public:
-
+	static bool hostLinkEnabled;
 	static void begin();
 
-	static void pinMode(uint8_t pin, uint8_t mode);
-	static void digitalWrite(uint8_t pin, uint8_t value);
-	static int16_t digitalRead(uint8_t pin);
-	static void analogWrite(uint8_t pin, int16_t value);
-	static int16_t analogRead(uint8_t pin);
+	static void invoke(uint16_t message, uint8_t numParms, const uint16_t* parmLengths, const uint8_t* qualifiers ...);
 
 
 
@@ -29,7 +25,6 @@ private:
 	static void sendMessage(uint16_t message, uint16_t length, char* data);
 	static void receiveMessage();
 
-	static void invoke(uint16_t message, uint8_t numParms, const uint16_t* parmLengths, const uint8_t* qualifiers ...);
 
 
 };

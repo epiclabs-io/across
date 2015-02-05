@@ -72,6 +72,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ACross.cpp" />
+    <ClCompile Include="SPI.cpp" />
     <ClCompile Include="VirtualHardware\ACHostLink.cpp" />
     <ClCompile Include="VirtualHardware\AConfig.cpp" />
     <ClCompile Include="VirtualHardware\Arduino.cpp" />
@@ -84,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ACross.h" />
+    <ClInclude Include="SPI.h" />
     <ClInclude Include="VirtualHardware\ACHostLink.h" />
     <ClInclude Include="VirtualHardware\AConfig.h" />
     <ClInclude Include="VirtualHardware\Arduino.h" />

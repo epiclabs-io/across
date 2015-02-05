@@ -45,6 +45,9 @@
     <ClCompile Include="VirtualHardware\Arduino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VirtualHardware\Print.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VirtualHardware\pins_arduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

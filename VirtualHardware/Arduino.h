@@ -24,7 +24,17 @@ uint32_t millis()
 
 #if defined(WIN32) || defined(UNIX)
 	#include <iostream>
+
+#include "avr/io.h"
+
+
 using namespace std;
+
+#define bit(b) (1UL << (b))
+#define bitRead(value, bit) (((value) >> (bit)) & 0x01)
+#define bitSet(value, bit) ((value) |= (1UL << (bit)))
+#define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
+#define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
 #define HIGH 0x1
 #define LOW  0x0
@@ -92,6 +102,7 @@ int16_t digitalRead(uint8_t pin);
 int16_t analogRead(uint8_t pin);
 void analogReference(uint8_t mode);
 void analogWrite(uint8_t pin, int value);
+void delay(uint32_t milliseconds);
 
 int FreeRam(void);
 
