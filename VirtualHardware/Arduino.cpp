@@ -29,7 +29,10 @@ void digitalWrite(uint8_t pin, uint8_t value)
 int16_t digitalRead(uint8_t pin)
 {
 	if (!ACHostLink::hostLinkEnabled)
+	{
 		printf("digitalRead(pin=%d)\n", pin);
+		return 0;
+	}
 	else
 	{
 
@@ -43,7 +46,10 @@ int16_t digitalRead(uint8_t pin)
 int16_t analogRead(uint8_t pin)
 {
 	if (!ACHostLink::hostLinkEnabled)
+	{
 		printf("analogRead(pin=%d)\n", pin);
+		return 0;
+	}
 	else
 	{
 
@@ -90,7 +96,10 @@ void ACross_writeReg(uint16_t regAddress, uint8_t value)
 uint8_t ACross_readReg(uint16_t regAddress)
 {
 	if (!ACHostLink::hostLinkEnabled)
+	{
 		printf("ACross_readReg(regAddress=%d)\n", regAddress);
+		return 0;
+	}
 	else
 	{
 		uint8_t ret;
