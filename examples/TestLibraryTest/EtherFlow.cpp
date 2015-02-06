@@ -283,7 +283,7 @@ uint8_t EtherFlow::begin(uint8_t cspin)
 	while (!readOp(ENC28J60_READ_CTRL_REG, ESTAT) & ESTAT_CLKRDY)
 		;
 
-	byte rev = readRegByte(EREVID);
+	Serial.println(readRegByte(EREVID));
 
 	return 0;
 

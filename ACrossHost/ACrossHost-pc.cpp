@@ -11,14 +11,12 @@
 #include <ACross\VirtualHardware\ACRPCCLient.h>
 
 
-#include "TestLibraryTest.ino"
+#include "ACrossHost.ino"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	AConfig::VirtualSerialPort = _T("\\\\.\\COM31");
-	AConfig::HostlinkSerialPort = _T("\\\\.\\COM35");
+	AConfig::VirtualSerialPort = _T("\\\\.\\COM36");
 
-	ACRPCCLient::begin();
 
 
 

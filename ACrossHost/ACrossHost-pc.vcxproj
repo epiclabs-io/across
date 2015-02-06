@@ -11,19 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5827594F-DC3E-48C1-9081-D10B622E1A6D}</ProjectGuid>
+    <ProjectGuid>{75DE7E1F-60A1-4064-A057-CFAA1C89190F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ACross</RootNamespace>
+    <RootNamespace>ACrossHostpc</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -39,18 +39,28 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\jpeletie\Dropbox\Arduino\libraries;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)$(Configuration)-pc\</OutDir>
+    <IntDir>$(Configuration)-pc\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\jpeletie\Dropbox\Arduino\libraries\ACross\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>across.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -61,49 +71,20 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ACLinkListener.cpp" />
-    <ClCompile Include="ACLinkProtocol.cpp" />
-    <ClCompile Include="ACross.cpp" />
-    <ClCompile Include="SPI.cpp" />
-    <ClCompile Include="VirtualHardware\ACLinkClient.cpp" />
-    <ClCompile Include="VirtualHardware\AConfig.cpp" />
-    <ClCompile Include="VirtualHardware\ACRPCClient.cpp" />
-    <ClCompile Include="VirtualHardware\Arduino.cpp" />
-    <ClCompile Include="VirtualHardware\Print.cpp" />
-    <ClCompile Include="VirtualHardware\Serial.cpp" />
-    <ClCompile Include="VirtualHardware\SerialEx.cpp" />
-    <ClCompile Include="VirtualHardware\Stream.cpp" />
-    <ClCompile Include="VirtualHardware\VirtualSerial.cpp" />
-    <ClCompile Include="VirtualHardware\WString.cpp" />
+    <ClCompile Include="ACrossHost-pc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ACLinkListener.h" />
-    <ClInclude Include="ACLinkProtocol.h" />
-    <ClInclude Include="ACross.h" />
-    <ClInclude Include="SPI.h" />
-    <ClInclude Include="VirtualHardware\ACLinkClient.h" />
-    <ClInclude Include="VirtualHardware\AConfig.h" />
-    <ClInclude Include="VirtualHardware\ACRPCClient.h" />
-    <ClInclude Include="VirtualHardware\Arduino.h" />
-    <ClInclude Include="VirtualHardware\Messages.h" />
-    <ClInclude Include="VirtualHardware\pins_arduino.h" />
-    <ClInclude Include="VirtualHardware\Print.h" />
-    <ClInclude Include="VirtualHardware\Printable.h" />
-    <ClInclude Include="VirtualHardware\Serial.h" />
-    <ClInclude Include="VirtualHardware\SerialEx.h" />
-    <ClInclude Include="VirtualHardware\Stream.h" />
-    <ClInclude Include="VirtualHardware\VirtualSerial.h" />
-    <ClInclude Include="VirtualHardware\WString.h" />
+    <None Include="ACrossHost.ino" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

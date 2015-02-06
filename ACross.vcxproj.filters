@@ -39,13 +39,22 @@
     <ClCompile Include="VirtualHardware\AConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VirtualHardware\ACHostLink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VirtualHardware\Arduino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ACLinkProtocol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualHardware\ACLinkClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ACLinkListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualHardware\ACRPCClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,9 +86,6 @@
     <ClInclude Include="VirtualHardware\AConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VirtualHardware\ACHostLink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VirtualHardware\Messages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -90,6 +96,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ACLinkProtocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualHardware\ACRPCClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualHardware\ACLinkClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ACLinkListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

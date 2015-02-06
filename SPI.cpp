@@ -29,32 +29,14 @@ static void xferSPI(byte data)
 
 void SPISend(uint8_t cspin, uint16_t length, uint8_t* data)
 {
-	cli();
-	digitalWrite(cspin, LOW);
-
-	while (length--)
-		xferSPI(*data++);
-
-	digitalWrite(cspin, HIGH);
-	sei();
+	SPISendReceive(cspin,length,data,0,NULL);
 }
 void SPIReceive(uint8_t cspin, uint16_t length, uint8_t* data)
 {
-	cli();
-	digitalWrite(cspin, LOW);
-
-	while (length--)
-	{
-		xferSPI(0x00);
-		*data++ = SPDR;
-	}
-
-	digitalWrite(cspin, HIGH);
-	sei();
+	SPISendReceive(cspin,0,NULL,length,data);
 }
 void SPISendReceive(uint8_t cspin, uint16_t sendLength, uint8_t* sendData, uint16_t receiveLength, uint8_t* receiveData)
 {
-
 	cli();
 	digitalWrite(cspin, LOW);
 
@@ -73,43 +55,32 @@ void SPISendReceive(uint8_t cspin, uint16_t sendLength, uint8_t* sendData, uint1
 
 #else
 
-#include "VirtualHardware/ACHostLink.h"
+#include "VirtualHardware/ACRPCCLient.h"
 
 void initSPI()
 {
-	if (!ACHostLink::hostLinkEnabled)
+	if (!ACRPCCLient::hostLinkEnabled)
 		printf("ACross_initSPI\n");
 	else
 	{
-		uint8_t ret;
+	
 		invoke_RPC_NO_PARMS(ACross_initSPI);
 	}
 }
 
 void SPISend(uint8_t cspin, uint16_t length, uint8_t* data)
 {
-	if (!ACHostLink::hostLinkEnabled)
-		printf("ACross_SPISend(cspin=%d, length=%d, data=%p)\n", cspin, length, data);
-	else
-	{
-
-		invoke_RPC(ACross_SPISend, cspin, length, data, length);
-	}
+		SPISendReceive(cspin, length, data, 0, NULL);
 }
 
 void SPIReceive(uint8_t cspin, uint16_t length, uint8_t* data)
 {
-	if (!ACHostLink::hostLinkEnabled)
-		printf("ACross_SPIReceive(cspin=%d, length=%d, data=%p)\n",cspin,length,data);
-	else
-	{
-		invoke_RPC(ACross_SPIReceive, cspin, length, data, length);
-	}
+		SPISendReceive(cspin, 0, NULL, length, data);
 }
 
 void SPISendReceive(uint8_t cspin, uint16_t sendLength, uint8_t* sendData, uint16_t receiveLength, uint8_t* receiveData)
 {
-	if (!ACHostLink::hostLinkEnabled)
+	if (!ACRPCCLient::hostLinkEnabled)
 		printf("ACross_SPISendReceive(cspin=%d, sendLength=%d, sendData=%p, receiveLength=%d, receiveData=%p)\n",
 			cspin,sendLength,sendData,receiveLength,receiveData);
 	else

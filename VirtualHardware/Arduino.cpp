@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "ACHostLink.h"
+#include "ACRPCCLient.h"
 
 #include <stdio.h>
 VirtualSerial Serial;
@@ -8,7 +8,7 @@ VirtualSerial Serial;
 
 void pinMode(uint8_t pin, uint8_t mode)
 {
-	if (!ACHostLink::hostLinkEnabled)
+	if (!ACRPCCLient::hostLinkEnabled)
 		printf("pinMode(pin = %d, mode=%d)\n", pin, mode);
 	else
 	{
@@ -18,7 +18,7 @@ void pinMode(uint8_t pin, uint8_t mode)
 
 void digitalWrite(uint8_t pin, uint8_t value)
 {
-	if (!ACHostLink::hostLinkEnabled)
+	if (!ACRPCCLient::hostLinkEnabled)
 		printf("digitalWrite(pin=%d, value=%d)\n", pin, value);
 	else
 	{
@@ -28,7 +28,7 @@ void digitalWrite(uint8_t pin, uint8_t value)
 
 int16_t digitalRead(uint8_t pin)
 {
-	if (!ACHostLink::hostLinkEnabled)
+	if (!ACRPCCLient::hostLinkEnabled)
 	{
 		printf("digitalRead(pin=%d)\n", pin);
 		return 0;
@@ -45,7 +45,7 @@ int16_t digitalRead(uint8_t pin)
 
 int16_t analogRead(uint8_t pin)
 {
-	if (!ACHostLink::hostLinkEnabled)
+	if (!ACRPCCLient::hostLinkEnabled)
 	{
 		printf("analogRead(pin=%d)\n", pin);
 		return 0;
@@ -66,7 +66,7 @@ void analogReference(uint8_t mode)
 }
 void analogWrite(uint8_t pin, int value)
 {
-	if (!ACHostLink::hostLinkEnabled)
+	if (!ACRPCCLient::hostLinkEnabled)
 		printf("analogWrite(pin=%d, value=%d)\n", pin, value);
 	else
 	{
@@ -81,30 +81,3 @@ void delay(uint32_t milliseconds)
 	while ((int32_t)(wait - millis()) > 0);
 }
 
-void ACross_writeReg(uint16_t regAddress, uint8_t value)
-{
-	if (!ACHostLink::hostLinkEnabled)
-		printf("ACross_writeReg(regAddress=%d, value=%d)\n", regAddress, value);
-	else
-	{
-		invoke_RPC(ACross_writeReg8, regAddress, value);
-	}
-
-
-}
-
-uint8_t ACross_readReg(uint16_t regAddress)
-{
-	if (!ACHostLink::hostLinkEnabled)
-	{
-		printf("ACross_readReg(regAddress=%d)\n", regAddress);
-		return 0;
-	}
-	else
-	{
-		uint8_t ret;
-		invoke_RPC(ACross_readReg8, regAddress, &ret);
-
-		return ret;
-	}
-}

@@ -18,9 +18,9 @@ void setup()
 
 	waitTimer = millis();
 
-	/*pinMode(13, OUTPUT);*/
+	pinMode(13, OUTPUT);
 
-	EtherFlow::begin(10);
+	//EtherFlow::begin(10);
 
 	Serial.println("howdy!");
 
@@ -29,7 +29,8 @@ void setup()
 
 void loop()
 {
-	/*
+	//return;
+	
 	if (millis() > waitTimer + 1000)
 	{
 		digitalWrite(13, state = (state == LOW ? HIGH : LOW));
@@ -38,7 +39,7 @@ void loop()
 
 		waitTimer = millis();
 	}
-	*/
+	
 
 
 

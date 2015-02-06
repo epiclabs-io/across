@@ -18,7 +18,7 @@ struct ring_buffer
 	volatile unsigned int tail;
 };
 
-class VirtualSerial : private CSerialEx, public Stream
+class VirtualSerial : public Stream, private CSerialEx
 {
 
 protected:
@@ -59,6 +59,8 @@ public:
 	inline size_t write(long n) { return write((uint8_t)n); }
 	inline size_t write(unsigned int n) { return write((uint8_t)n); }
 	inline size_t write(int n) { return write((uint8_t)n); }
+	inline size_t write(const uint8_t* buffer, size_t size){ return Print::write(buffer, size); }
+
 	void flush();
 	int peek();
 	int _timedRead(unsigned long timeout, bool peekData=false);
