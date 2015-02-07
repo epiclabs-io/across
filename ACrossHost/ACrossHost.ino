@@ -69,7 +69,7 @@ void RPC_analogRead(rpc_msg& msg)
 
 void RPC_ACross_initSPI(rpc_msg& msg)
 {
-	initSPI();
+	ACross::SPI::init();
 	okMessage();
 }
 
@@ -85,7 +85,7 @@ void RPC_ACRoss_SPISendReceive(rpc_msg& msg)
 
 
 
-	SPISendReceive(cspin, sendLength, sendData, receiveLength, receiveData);
+	ACross::SPI::sendReceive(cspin, sendLength, sendData, receiveLength, receiveData);
 	sendMessage(receiveLength);
 }
 
@@ -102,13 +102,7 @@ void processMessage()
 	}
 	else
 	{
-
-
-		switch (ACLinkListener::buffer.header.command)
-		{
-			default:
-				break;
-		}
+		//ignore message
 
 	}
 }
@@ -116,11 +110,7 @@ void processMessage()
 
 void setup()
 {
-
-	//ACLinkListener::begin(115200);
-	Serial.begin(115200);
-	Serial.setTimeout(20000);
-	
+	ACLinkListener::begin(115200);
 }
 
 void loop()

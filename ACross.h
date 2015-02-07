@@ -17,7 +17,7 @@
 #define __AVR_ATmega328p__
 #define __AVR_ATmega328P__
 #define ARDUINO_MAIN
-
+#pragma pack(1)
 #include "VirtualHardware/Arduino.h"
 
 

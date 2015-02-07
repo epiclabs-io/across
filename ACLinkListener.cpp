@@ -35,13 +35,14 @@ uint8_t ACLinkListener::listen()
 {
 	ACLinkMessageHeader header;
 
-	uint8_t attempts = 5;
+	uint8_t attempts = ACLINK_MAX_RETRIES;
 	do
 	{
 		
 		if (serialRead(sizeof(ACLinkMessageHeader), (uint8_t*)&header))
 		{
-			return 0xFF;
+			//timeout
+			return 0xFF; // let the outer loop retry
 		}
 		
 		//if (rand() % 8 == 0)
@@ -49,27 +50,33 @@ uint8_t ACLinkListener::listen()
 		//	header.command ^= 0x01;
 		//}
 		
-		if (0 == ACLink_checksum(0, sizeof(ACLinkMessageHeader), (uint8_t*)&header))
+		if (0 == ACLink_checksum(sizeof(ACLinkMessageHeader), (uint8_t*)&header))
 		{
 			
 			if (header.dataLength > ACLINK_BUFFER_SIZE)
 			{
-				return 0;
+				return 0; //irrecoverable
 			}
 
 			if (header.sequenceNumber == sequenceNumber)
 			{
+				//duplicate request
 				emptyBuffer();
 				
-				reply();
+				reply(); // resend last reply
 				continue;
 			}
+
+			//at this point we're sure this is not a duplicate request, 
+			//so it is safe to overwrite our buffer.
+
 			buffer.header = header;
 
-			
+		
 			if (serialRead(header.dataLength, buffer.data))
 			{
-				return 0;
+				//timeout
+				return 0xFF; // let the outer loop reply
 			}
 
 			buffer.header.headerChecksum = 0;
@@ -79,7 +86,7 @@ uint8_t ACLinkListener::listen()
 			//	buffer.data[0] ^= 0x01;
 			//}
 
-			if (0 == ACLink_checksum(0, sizeof(ACLinkMessageHeader) + header.dataLength, (uint8_t*)&buffer))
+			if (0 == ACLink_checksum(sizeof(ACLinkMessageHeader) + header.dataLength, (uint8_t*)&buffer))
 			{
 				sequenceNumber = header.sequenceNumber;
 				return 1; //ok!
@@ -88,9 +95,15 @@ uint8_t ACLinkListener::listen()
 			
 		}
 		
-		buffer.header.command = ACLINK_MSG_ERROR;
+		//we're here due to checksum error
+		//create a new header for the error reply so as not
+		//to overwrite the last buffer.
+
+		ACLinkMessageHeader errorHeader;
+		errorHeader.command = ACLINK_MSG_ERROR;
+		errorHeader.dataLength = 0;
+		reply(errorHeader, NULL);
 		//cout << " checksum error";
-		reply(0);
 
 		emptyBuffer();
 
@@ -104,20 +117,22 @@ uint8_t ACLinkListener::listen()
 
 }
 
+void ACLinkListener::reply(ACLinkMessageHeader& header, uint8_t* data)
+{
+	uint16_t packetLength = header.dataLength + sizeof(ACLinkMessageHeader);
+	header.dataChecksum = 0;
+	header.headerChecksum = 0;
+	header.dataChecksum = ACLink_checksum(sizeof(ACLinkMessageHeader), (uint8_t*)&header) ^ ACLink_checksum(header.dataLength,data);
+	header.headerChecksum = ACLink_checksum(sizeof(ACLinkMessageHeader), (uint8_t*)&header);
+
+
+	Serial.write((uint8_t*)&header, sizeof(ACLinkMessageHeader));
+	Serial.write(data, header.dataLength);
+}
 
 void ACLinkListener::reply()
 {
-	uint16_t packetLength = buffer.header.dataLength + sizeof(ACLinkMessageHeader);
-	buffer.header.dataChecksum = 0;
-	buffer.header.headerChecksum = 0;
-	buffer.header.dataChecksum = ACLink_checksum(0, packetLength, (uint8_t*)&buffer);
-	buffer.header.headerChecksum = ACLink_checksum(0, sizeof(ACLinkMessageHeader), (uint8_t*)&buffer.header);
-
-
-	Serial.write((uint8_t*)&buffer, packetLength);
-
-
-
+	reply(buffer.header, buffer.data);
 }
 
 void ACLinkListener::reply(uint16_t dataLength)

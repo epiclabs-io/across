@@ -23,14 +23,13 @@ struct ACLinkMessage
 static const uint16_t ACLINK_MSG_RESERVED = 0xFF00;
 static const uint16_t ACLINK_MSG_ERROR = ACLINK_MSG_RESERVED;
 static const uint16_t ACLINK_MSG_OK = ACLINK_MSG_RESERVED + 1;
-static const uint16_t ACLINK_MSG_NACK = ACLINK_MSG_RESERVED + 2;
-static const uint16_t ACLINK_MSG_PING = ACLINK_MSG_RESERVED + 3;
 static const uint16_t ACLINK_MSG_RESET = 0xFFFF;
 
 static const uint16_t ACLINK_EMPTY_TIMEOUT = 50; //ms
 static const uint16_t ACLINK_TIMEOUT = 4000; //ms
+static const uint8_t ACLINK_MAX_RETRIES = 4;
 
 
-uint8_t ACLink_checksum(uint8_t chk, uint16_t length, uint8_t* data);
+uint8_t ACLink_checksum(uint16_t length, uint8_t* data);
 
 #endif

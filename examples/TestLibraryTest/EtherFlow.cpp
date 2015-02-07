@@ -231,7 +231,7 @@ static void writeOp(byte op, byte address, byte data)
 
 	b[0] = op | (address & ADDR_MASK);
 	b[1] = data;
-	SPISend(selectPin, 2, b);
+	ACross::SPI::send(selectPin, 2, b);
 }
 
 static byte readOp(byte op, byte address) {
@@ -250,7 +250,7 @@ static byte readOp(byte op, byte address) {
 
 	uint16_t sendLength = (address & 0x80) ? 3 : 2;
 
-	SPISendReceive(selectPin, sendLength, b, 1, b);
+	ACross::SPI::sendReceive(selectPin, sendLength, b, 1, b);
 
 	return b[0];
 }
@@ -273,7 +273,7 @@ uint8_t EtherFlow::begin(uint8_t cspin)
 
 
 	//if (bitRead(SPCR, SPE) == 0)
-		initSPI();
+	ACross::SPI::init();
 	selectPin = cspin;
 	pinMode(selectPin, OUTPUT);
 	digitalWrite(selectPin, HIGH);

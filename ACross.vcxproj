@@ -84,6 +84,7 @@
     <ClCompile Include="VirtualHardware\SerialEx.cpp" />
     <ClCompile Include="VirtualHardware\Stream.cpp" />
     <ClCompile Include="VirtualHardware\VirtualSerial.cpp" />
+    <ClCompile Include="VirtualHardware\WMath.cpp" />
     <ClCompile Include="VirtualHardware\WString.cpp" />
   </ItemGroup>
   <ItemGroup>

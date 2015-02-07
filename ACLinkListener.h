@@ -15,6 +15,7 @@ public:
 	static uint8_t listen();
 	static void reply();
 	static void reply(uint16_t dataLength);
+	static void reply(ACLinkMessageHeader& header, uint8_t* data);
 
 private:
 

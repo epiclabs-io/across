@@ -46,9 +46,6 @@ void ACLinkClient::emptyBuffer()
 	}
 }
 
-
-
-
 void ACLinkClient::request(uint16_t command, uint16_t dataLength)
 {
 	uint16_t packetLength = sizeof(ACLinkMessageHeader) + dataLength;
@@ -59,12 +56,11 @@ void ACLinkClient::request(uint16_t command, uint16_t dataLength)
 	txBuffer.header.dataChecksum = 0;
 	txBuffer.header.headerChecksum = 0;
 
-	txBuffer.header.dataChecksum = ACLink_checksum(0, packetLength, (uint8_t*)&txBuffer);
-	txBuffer.header.headerChecksum = ACLink_checksum(0, sizeof(ACLinkMessageHeader), (uint8_t*)&txBuffer.header);
+	txBuffer.header.dataChecksum = ACLink_checksum(packetLength, (uint8_t*)&txBuffer);
+	txBuffer.header.headerChecksum = ACLink_checksum(sizeof(ACLinkMessageHeader), (uint8_t*)&txBuffer.header);
 
-	uint8_t attempts = 5;
+	uint8_t attempts = ACLINK_MAX_RETRIES;
 	
-
 	do
 	{
 		serialWrite(packetLength, (uint8_t*)&txBuffer);
@@ -76,28 +72,29 @@ void ACLinkClient::request(uint16_t command, uint16_t dataLength)
 		//	cout << b;
 		//}
 
-		if (serialRead(sizeof(ACLinkMessageHeader), (uint8_t*)&rxBuffer.header))
-			AC_halt(8);
-
-		if (0 == ACLink_checksum(0, sizeof(ACLinkMessageHeader), (uint8_t*)&rxBuffer.header)
-			&& rxBuffer.header.command==ACLINK_MSG_OK)
+		if (!serialRead(sizeof(ACLinkMessageHeader), (uint8_t*)&rxBuffer.header))
 		{
-			if (rxBuffer.header.dataLength > ACLINK_BUFFER_SIZE)
+			if (0 == ACLink_checksum(sizeof(ACLinkMessageHeader), (uint8_t*)&rxBuffer.header)
+				&& rxBuffer.header.command == ACLINK_MSG_OK)
 			{
-				AC_halt(9);
-			}
-			else
-			{
-				if (serialRead(rxBuffer.header.dataLength, rxBuffer.data))
+				if (rxBuffer.header.dataLength > ACLINK_BUFFER_SIZE)
 				{
-					AC_halt(10);
+					AC_halt(9); //irrecoverable
 				}
-				rxBuffer.header.headerChecksum = 0;
-				if (0 == ACLink_checksum(0, sizeof(ACLinkMessageHeader) + rxBuffer.header.dataLength, (uint8_t*)&rxBuffer))
-					return; // ok!
+				else
+				{
+					if (!serialRead(rxBuffer.header.dataLength, rxBuffer.data))
+					{
+						rxBuffer.header.headerChecksum = 0;
+						if (0 == ACLink_checksum(sizeof(ACLinkMessageHeader) + rxBuffer.header.dataLength, (uint8_t*)&rxBuffer))
+							return; // ok!
+					}
+				}
 			}
 		}
 		
+		//timeout or NACK
+
 		cout << "resend!";
 
 		emptyBuffer();

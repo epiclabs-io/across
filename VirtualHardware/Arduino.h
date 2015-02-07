@@ -77,6 +77,7 @@ using namespace std;
 #define PGM_P char*
 #define NATIVE_FUNCTION_PTR(ptr) ptr
 #define PGM_STR_PTR(ptr) ptr
+#define PGM_VOID_P void*
 
 #define __inline__
 #define __extension__
@@ -92,7 +93,7 @@ using namespace std;
 #define waitChar() Serial.waitAvailable(INFINITE);
 #define strncmp_P strncmp
 #define strcmp_P strcmp
-
+#define memcpy_P memcpy
 
 #include "VirtualSerial.h"
 
@@ -104,7 +105,14 @@ void analogReference(uint8_t mode);
 void analogWrite(uint8_t pin, int value);
 void delay(uint32_t milliseconds);
 
-int FreeRam(void);
+//WMath prototypes
+
+int32_t random(int32_t howbig);
+int32_t random(int32_t howsmall, int32_t howbig);
+void randomSeed(uint16_t seed);
+int32_t map(int32_t x, int32_t in_min, int32_t in_max, int32_t out_min, int32_t out_max);
+uint16_t makeWord(uint16_t w);
+uint16_t makeWord(byte h, byte l);
 
 extern VirtualSerial Serial;
 

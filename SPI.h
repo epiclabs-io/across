@@ -5,15 +5,18 @@
 
 #include "ACross.h"
 
+namespace ACross
+{
+	class SPI
+	{
+		public:
+		static void init();
+		static void send(uint8_t cspin, uint16_t length, uint8_t* data);
+		static void receive(uint8_t cspin, uint16_t length, uint8_t* data);
+		static void sendReceive(uint8_t cspin, uint16_t sendLength, uint8_t* sendData, uint16_t receiveLength, uint8_t* receiveData);
 
-
-void initSPI();
-void SPISend(uint8_t cspin, uint16_t length, uint8_t* data);
-void SPIReceive(uint8_t cspin, uint16_t length, uint8_t* data);
-void SPISendReceive(uint8_t cspin, uint16_t sendLength, uint8_t* sendData, uint16_t receiveLength, uint8_t* receiveData);
-
-
-
+	};
+};
 
 
 

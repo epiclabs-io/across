@@ -57,6 +57,9 @@
     <ClCompile Include="VirtualHardware\ACRPCClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VirtualHardware\WMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VirtualHardware\Print.h">
