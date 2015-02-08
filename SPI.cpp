@@ -2,8 +2,7 @@
 #include "SPI.h"
 
 
-
-#ifdef ARDUINO
+#ifdef ACROSS_ARDUINO
 namespace ACross
 {
 	void SPI::init()
@@ -30,30 +29,61 @@ namespace ACross
 			;
 	}
 
+	inline static void beginSession(uint8_t cspin)
+	{
+		cli();
+		digitalWrite(cspin, LOW);
+	}
+
+	inline static void endSession(uint8_t cspin)
+	{
+		digitalWrite(cspin, HIGH);
+		sei();
+	}
+
+	static void sendBuffer(uint16_t length, uint8_t* data)
+	{
+		while (length--)
+			xferSPI(*data++);
+	}
+
+	static void receiveBuffer(uint16_t length, uint8_t* data )
+	{
+		while (length--)
+		{
+			xferSPI(0x00);
+			*data++ = SPDR;
+		}
+	}
+
+
 	void SPI::send(uint8_t cspin, uint16_t length, uint8_t* data)
 	{
-		SPI::sendReceive(cspin,length,data,0,NULL);
+		send(cspin,length,data,0,NULL);
 	}
+
+	void SPI::send(uint8_t cspin, uint16_t length1, uint8_t* data1, uint16_t length2, uint8_t* data2)
+	{
+		beginSession(cspin);
+
+		sendBuffer(length1,data1);
+		sendBuffer(length2,data2);
+
+		endSession(cspin);
+	}
+
 	void SPI::receive(uint8_t cspin, uint16_t length, uint8_t* data)
 	{
 		sendReceive(cspin,0,NULL,length,data);
 	}
 	void SPI::sendReceive(uint8_t cspin, uint16_t sendLength, uint8_t* sendData, uint16_t receiveLength, uint8_t* receiveData)
 	{
-		cli();
-		digitalWrite(cspin, LOW);
+		beginSession(cspin);
 
-		while (sendLength--)
-			xferSPI(*sendData++);
+		sendBuffer(sendLength,sendData);
+		receiveBuffer(receiveLength, receiveData);
 
-		while (receiveLength--)
-		{
-			xferSPI(0x00);
-			*receiveData++ = SPDR;
-		}
-
-		digitalWrite(cspin, HIGH);
-		sei();
+		endSession(cspin);
 	}
 };
 #else
@@ -77,6 +107,15 @@ namespace ACross
 	{
 		sendReceive(cspin, length, data, 0, NULL);
 	}
+
+	void SPI::send(uint8_t cspin, uint16_t length1, uint8_t* data1, uint16_t length2, uint8_t* data2)
+	{
+		uint8_t* buf = new uint8_t[length1 + length2];
+		memcpy(buf, data1, length1);
+		memcpy(buf + length1, data2, length2);
+		send(cspin, length1 + length2, buf);
+	}
+
 
 	void SPI::receive(uint8_t cspin, uint16_t length, uint8_t* data)
 	{

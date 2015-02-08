@@ -5,14 +5,21 @@
 
 
 #if defined(ARDUINO) && ARDUINO >= 100
+
+#define ACROSS_ARDUINO
+
 #include "Arduino.h"
 #include <avr/pgmspace.h>
 
 #define NATIVE_FUNCTION_PTR(ptr) pgm_read_word(&(ptr))
 
+
+
 #else
 
 #if defined(WIN32) || defined(UNIX)
+
+#define ACROSS_PC
 
 #define __AVR_ATmega328p__
 #define __AVR_ATmega328P__
@@ -34,7 +41,11 @@
 #define dprint(s) Serial.print(s)
 #define dbinprintln(b) Serial.println(b,BIN)
 
-void AC_halt(uint16_t errorCode);
 
+namespace ACross
+{
+
+	void halt(uint16_t errorCode);
+};
 
 #endif

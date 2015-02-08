@@ -79,7 +79,7 @@ void ACLinkClient::request(uint16_t command, uint16_t dataLength)
 			{
 				if (rxBuffer.header.dataLength > ACLINK_BUFFER_SIZE)
 				{
-					AC_halt(9); //irrecoverable
+					ACross::halt(9); //irrecoverable
 				}
 				else
 				{
@@ -104,6 +104,6 @@ void ACLinkClient::request(uint16_t command, uint16_t dataLength)
 
 
 	// link timed out or non-recoverable error.
-	AC_halt(7); // error codes to be defined.
+	ACross::halt(7); // error codes to be defined.
 
 }
