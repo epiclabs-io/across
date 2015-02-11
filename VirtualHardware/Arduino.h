@@ -74,10 +74,11 @@ using namespace std;
 
 
 #define PROGMEM
-#define PGM_P char*
+#define PGM_P const char*
 #define NATIVE_FUNCTION_PTR(ptr) ptr
 #define PGM_STR_PTR(ptr) ptr
 #define PGM_VOID_P void*
+#define pgm_read_byte(b) (*(b))
 
 #define __inline__
 #define __extension__

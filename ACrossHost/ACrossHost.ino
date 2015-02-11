@@ -1,9 +1,9 @@
 
 
-#include <ACross/ACross.h>
-#include <ACross/ACLinkListener.h>
-#include <ACross/VirtualHardware/Messages.h>
-#include <ACross/SPI.h>
+#include <ACross.h>
+#include <ACLinkListener.h>
+#include <VirtualHardware/Messages.h>
+#include <SPI.h>
 
 
 
@@ -118,7 +118,7 @@ void loop()
 
 	switch (ACLinkListener::listen())
 	{
-		case 0:	AC_halt(11); break;
+		case 0:	ACross::halt(11); break;
 		case 1:processMessage(); break;
 		case 0xFF:break;
 		default:break;
