@@ -94,6 +94,8 @@ using namespace std;
 #define waitChar() Serial.waitAvailable(INFINITE);
 #define strncmp_P strncmp
 #define strcmp_P strcmp
+#define strcpy_P strcpy
+#define strlen_P strlen
 #define memcpy_P memcpy
 
 #include "VirtualSerial.h"

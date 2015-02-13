@@ -13,6 +13,8 @@
 
 #define NATIVE_FUNCTION_PTR(ptr) pgm_read_word(&(ptr))
 
+		extern int  __bss_end;
+		extern int* __brkval;
 
 
 #else
@@ -36,16 +38,25 @@
 
 // COMMON DEFINITIONS
 
+#ifdef _DEBUG
+#define ACDEBUG(x) x
+#else
+#define ACDEBUG(x)
+#endif
 
-#define dprintln(s) Serial.println(s)
-#define dprint(s) Serial.print(s)
-#define dbinprintln(b) Serial.println(b,BIN)
+#define dsprintln(s) ACDEBUG(Serial.println(F(s)))
+#define dsprint(s) ACDEBUG(Serial.print(F(s)))
+
+
+#define dprintln(s) ACDEBUG(Serial.println(s))
+#define dprint(s) ACDEBUG(Serial.print(s))
 
 
 namespace ACross
 {
 
 	void halt(uint16_t errorCode);
+	uint16_t getFreeRam(void);
 };
 
 #endif
