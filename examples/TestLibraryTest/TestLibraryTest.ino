@@ -1,6 +1,6 @@
 
-#include <ACross/ACross.h>
-#include <ACross/SPI.h>
+#include <ACross.h>
+#include <SPI.h>
 #include "EtherFlow.h"
 
 uint32_t waitTimer;
@@ -18,7 +18,7 @@ void setup()
 
 	waitTimer = millis();
 
-	pinMode(13, OUTPUT);
+	pinMode(4, OUTPUT);
 
 	//EtherFlow::begin(10);
 
@@ -33,7 +33,7 @@ void loop()
 	
 	if (millis() > waitTimer + 1000)
 	{
-		digitalWrite(13, state = (state == LOW ? HIGH : LOW));
+		digitalWrite(4, state = (state == LOW ? HIGH : LOW));
 
 		Serial.print("A0="); Serial.println(analogRead(14));
 

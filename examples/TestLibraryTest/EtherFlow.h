@@ -12,7 +12,7 @@
 #ifndef ESEthernet_h
 #define ESEthernet_h
 
-#include <ACross/ACross.h>
+#include <ACross.h>
 
 
 // ENC28J60 Control Registers

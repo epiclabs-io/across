@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\jpeletie\Dropbox\Arduino\libraries\ACross;$(IncludePath)</IncludePath>
+    <IncludePath>$(ARDUINO_LIB)\ACross;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)$(Configuration)-pc\</OutDir>
     <IntDir>$(Configuration)-pc\</IntDir>
   </PropertyGroup>
@@ -59,7 +59,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\jpeletie\Dropbox\Arduino\libraries\ACross\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ARDUINO_LIB)\ACross\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>across.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
