@@ -116,7 +116,7 @@ namespace ACross
 #ifdef ACROSS_PC
 		fmt = fixPattern(pattern);
 #else
-		fmt=pattern;
+		fmt = (__FlashStringHelper*)pattern;
 #endif
 
 	//	printf_P(PSTR("[%S]\t[%S]\t"), NATIVE_FUNCTION_PTR(LOG_LEVEL_TABLE[level]), module);
