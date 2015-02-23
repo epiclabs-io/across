@@ -81,3 +81,47 @@ void delay(uint32_t milliseconds)
 	while ((int32_t)(wait - millis()) > 0);
 }
 
+
+//all this does is take the "millis" from the OS at startup time and consider that the starting value
+//so that we can return millis() as 0 when the program was launched.
+class MillisClass
+{
+	static uint32_t initialMillis;
+	static uint32_t raw_millis()
+	{
+
+		#if defined(WIN32)
+				return GetTickCount();
+		#else
+				struct timeval t;
+				gettimeofday(&t, NULL);
+				return t.tv_sec * 1000 + t.tv_usec / 1000;
+		#endif
+
+	}
+public:
+	MillisClass()
+	{
+		initialMillis = raw_millis();
+	}
+
+
+	static uint32_t millis()
+	{
+		return raw_millis() - initialMillis;
+	}
+
+}millisClass;
+
+uint32_t MillisClass::initialMillis;
+
+
+
+uint32_t millis()
+{
+	return MillisClass::millis();
+}
+
+
+
+

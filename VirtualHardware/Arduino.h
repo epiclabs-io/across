@@ -1,32 +1,21 @@
 #ifndef _VARDUINO_
 #define _VARDUINO_
 
+#if defined(WIN32) || defined(UNIX)
+	#include <iostream>
 
 
 #if defined(WIN32)
 
 #include <Windows.h>
 #include <inttypes.h>
-#define millis() GetTickCount()
 
 #else
 #include <sys/time.h>
 #include <unistd.h>
-
-uint32_t millis()
-{
-	struct timeval t;
-	gettimeofday(&t, NULL);
-	return t.tv_sec * 1000 + t.tv_usec / 1000;
-}
-
 #endif
 
-#if defined(WIN32) || defined(UNIX)
-	#include <iostream>
-
 #include "avr/io.h"
-
 
 using namespace std;
 
@@ -110,6 +99,7 @@ int16_t analogRead(uint8_t pin);
 void analogReference(uint8_t mode);
 void analogWrite(uint8_t pin, int value);
 void delay(uint32_t milliseconds);
+uint32_t millis();
 
 //WMath prototypes
 
