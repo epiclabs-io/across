@@ -126,18 +126,23 @@ namespace ACross
 		Serial.print(F("]\t["));
 		Serial.print((__FlashStringHelper*)module);
 		Serial.print(F("]\t"));
-
 		va_list args;
 		va_start(args, pattern);
-		vprintf_P((const char*)fmt, args);
-		va_end(args);
-
-		Serial.println();
 
 #ifdef ACROSS_PC
-		delete (char*)fmt;
-#endif
+		char buffer[256];
+		int i = vsprintf_s<sizeof(buffer)>(buffer, (char*)fmt, args);
+		Serial.write((uint8_t*)buffer, i);
 
+		delete (char*)fmt;
+#else
+
+		vprintf_P((const char*)fmt, args);
+
+
+#endif
+		va_end(args);
+		Serial.println();
 	}
 };
 
