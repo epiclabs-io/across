@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClInclude Include="ACLinkListener.h" />
     <ClInclude Include="ACLinkProtocol.h" />
+    <ClInclude Include="ACLog.h" />
     <ClInclude Include="ACross.h" />
     <ClInclude Include="SPI.h" />
     <ClInclude Include="VirtualHardware\ACLinkClient.h" />

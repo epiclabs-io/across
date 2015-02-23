@@ -10,12 +10,14 @@
 
 #include "Arduino.h"
 #include <avr/pgmspace.h>
+#include "ACprintf.h"
 
 #define NATIVE_FUNCTION_PTR(ptr) pgm_read_word(&(ptr))
 
 		extern int  __bss_end;
 		extern int* __brkval;
 
+#define vprintf_P(fmt,...) vfprintf_P(stdout,(fmt),##__VA_ARGS__)
 
 #else
 
@@ -38,25 +40,19 @@
 
 // COMMON DEFINITIONS
 
-#ifdef _DEBUG
-#define ACDEBUG(x) x
-#else
-#define ACDEBUG(x)
-#endif
-
-#define dsprintln(s) ACDEBUG(Serial.println(F(s)))
-#define dsprint(s) ACDEBUG(Serial.print(F(s)))
-
-
-#define dprintln(s) ACDEBUG(Serial.println(s))
-#define dprint(s) ACDEBUG(Serial.print(s))
-
 
 namespace ACross
 {
 
+	
+	void init();
 	void halt(uint16_t errorCode);
 	uint16_t getFreeRam(void);
+	void log(uint8_t level, PGM_P module, const __FlashStringHelper* pattern, ...);
+
+
+
+
 };
 
 #endif

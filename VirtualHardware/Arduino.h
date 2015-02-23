@@ -79,6 +79,7 @@ using namespace std;
 #define PGM_STR_PTR(ptr) ptr
 #define PGM_VOID_P void*
 #define pgm_read_byte(b) (*(b))
+#define pgm_read_word(b) (*(b))
 
 #define __inline__
 #define __extension__
@@ -97,6 +98,8 @@ using namespace std;
 #define strcpy_P strcpy
 #define strlen_P strlen
 #define memcpy_P memcpy
+#define printf_P printf
+#define vprintf_P vprintf
 
 #include "VirtualSerial.h"
 
