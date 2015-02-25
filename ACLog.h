@@ -47,13 +47,19 @@
 #endif
 
 #define AC_LOGFUNC(level,fmt,...) ACross::log( (level),  AC_MODULE_NAME_STR,F((fmt)),##__VA_ARGS__)
-
-#define ACASSERT(condition, fmt,...) AC_ASSERT(if((condition)) AC_LOGFUNC(0,  fmt,##__VA_ARGS__));
+#define ACASSERT(condition, fmt,...) AC_ASSERT(if(!(condition)) AC_LOGFUNC(0,  fmt,##__VA_ARGS__));
 #define ACERROR(fmt,...) AC_ERROR(AC_LOGFUNC( 1, fmt,##__VA_ARGS__));
 #define ACWARN(fmt,...) AC_WARN(AC_LOGFUNC( 2,  fmt,##__VA_ARGS__));
 #define ACDEBUG(fmt,...) AC_DEBUG(AC_LOGFUNC(3,  fmt,##__VA_ARGS__));
 #define ACINFO(fmt,...) AC_INFO(AC_LOGFUNC( 4, fmt,##__VA_ARGS__));
 #define ACTRACE(fmt,...) AC_TRACE(AC_LOGFUNC(5,fmt,##__VA_ARGS__));
+
+#ifdef _MSC_VER 
+#define ACBREAK(condition, fmt,...) AC_ASSERT(if(!(condition)) {AC_LOGFUNC(0,  fmt,##__VA_ARGS__);__debugbreak();});
+#else
+#define ACBREAK(condition,fmt,...) ACASSERT(condition,fmt,##__VA_ARGS__);
+#endif
+
 
 //defines a module name for logging.
 //This must be used in every file that uses the AC* logging functions
