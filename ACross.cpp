@@ -69,10 +69,10 @@ namespace ACross
 	static const char ASSERT_LEVEL_STR[] PROGMEM = "ASSERT-FAIL";
 	static const char ERROR_LEVEL_STR[] PROGMEM = "ERROR";
 	static const char WARN_LEVEL_STR[] PROGMEM = "WARN";
-	static const char INFO_LEVEL_STR[] PROGMEM = "INFO";
 	static const char DEBUG_LEVEL_STR[] PROGMEM = "DEBUG";
+	static const char INFO_LEVEL_STR[] PROGMEM = "INFO";
 	static const char TRACE_LEVEL_STR[] PROGMEM = "TRACE";
-	const char* const LOG_LEVEL_TABLE[] PROGMEM = { ASSERT_LEVEL_STR, ERROR_LEVEL_STR, WARN_LEVEL_STR, INFO_LEVEL_STR, DEBUG_LEVEL_STR, TRACE_LEVEL_STR };
+	const char* const LOG_LEVEL_TABLE[] PROGMEM = { ASSERT_LEVEL_STR, ERROR_LEVEL_STR, WARN_LEVEL_STR, DEBUG_LEVEL_STR,INFO_LEVEL_STR, TRACE_LEVEL_STR };
 
 #ifdef ACROSS_PC
 	//AVR libc allows to use %S in format strings for PROGMEM

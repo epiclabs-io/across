@@ -1,4 +1,5 @@
 #include "ACprintf.h"
+
 namespace ACross
 {
 	int printf_out_serial( char c, FILE * )

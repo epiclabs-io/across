@@ -2,7 +2,7 @@
 #define _ACROSS_ACLINKPROTOCOL_
 #include "ACross.h"
 
-static const uint16_t ACLINK_BUFFER_SIZE = 128;
+static const uint16_t ACLINK_BUFFER_SIZE = 600;
 
 #pragma pack(push,1)
 struct ACLinkMessageHeader

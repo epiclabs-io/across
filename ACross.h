@@ -19,6 +19,9 @@
 
 #define vprintf_P(fmt,...) vfprintf_P(stdout,(fmt),##__VA_ARGS__)
 
+#define NOINLINE __attribute__((noinline))
+#define ALWAYSINLINE __attribute__((always_inline))  //e.g. static inline  void readValue()
+
 #else
 
 #if defined(WIN32) || defined(UNIX)
