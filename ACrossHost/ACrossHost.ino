@@ -3,7 +3,7 @@
 #include <ACross.h>
 #include <ACLinkListener.h>
 #include <VirtualHardware/Messages.h>
-#include <SPI.h>
+#include <ACSPI.h>
 
 
 

@@ -86,6 +86,10 @@ using namespace std;
 #define strcmp_P strcmp
 #define strcpy_P strcpy
 #define strlen_P strlen
+#define strcasecmp _stricmp
+#define strcasecmp_P _stricmp
+#define strncasecmp _strnicmp
+#define strncasecmp_P _strnicmp
 #define memcpy_P memcpy
 #define printf_P printf
 #define vprintf_P vprintf

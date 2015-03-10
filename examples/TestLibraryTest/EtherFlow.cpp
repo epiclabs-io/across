@@ -2,7 +2,7 @@
 
 #include "EtherFlow.h"
 #include <stdarg.h>
-#include <SPI.h>
+#include <ACSPI.h>
 
 uint8_t selectPin;
 static byte Enc28j60Bank;

@@ -1,5 +1,5 @@
 
-#include "SPI.h"
+#include "ACSPI.h"
 
 
 #ifdef ACROSS_ARDUINO

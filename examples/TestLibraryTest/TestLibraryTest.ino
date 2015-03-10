@@ -1,6 +1,6 @@
 
 #include <ACross.h>
-#include <SPI.h>
+#include <ACSPI.h>
 #include "EtherFlow.h"
 
 uint32_t waitTimer;
