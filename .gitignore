@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+*.GhostDoc.xml
 Visual Micro/
 
 # Build results
